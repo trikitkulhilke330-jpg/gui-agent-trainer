@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Upload, Image as ImageIcon, Save, Download, BookOpen, Sparkles, FileCheck, Lightbulb, Trash2, Eye, X, Check, AlertCircle, ChevronRight, Loader2 } from 'lucide-react';
+import { Upload, Image as ImageIcon, Save, Download, BookOpen, Sparkles, FileCheck, Lightbulb, Trash2, Eye, X, Check, AlertCircle, ChevronRight, Loader2, Puzzle, FileText, Search } from 'lucide-react';
+import BreakdownTab from './tabs/BreakdownTab';
+import RulesTab from './tabs/RulesTab';
+import QaTab from './tabs/QaTab';
 
 // ========== 概念速查数据 ==========
 const CONCEPTS = [
@@ -169,9 +172,12 @@ export default function App() {
             </h1>
             <span className="text-xs text-stone-500 tracking-widest">v1.0 · 自学版</span>
           </div>
-          <nav className="flex gap-1 text-sm">
+          <nav className="flex gap-1 text-sm flex-wrap">
             {[
               { id: 'annotate', name: '标注台', icon: '✎' },
+              { id: 'breakdown', name: '需求拆解', icon: <Puzzle className="w-4 h-4 inline" /> },
+              { id: 'rules', name: '规则文档', icon: <FileText className="w-4 h-4 inline" /> },
+              { id: 'qa', name: '质检台', icon: <Search className="w-4 h-4 inline" /> },
               { id: 'library', name: `样本库 (${annotations.length})`, icon: '◫' },
               { id: 'examples', name: '范例对照', icon: '⚖' },
               { id: 'concepts', name: '概念速查', icon: '✦' }
@@ -194,6 +200,9 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         {tab === 'annotate' && <AnnotateTab onSave={handleSave} />}
+        {tab === 'breakdown' && <BreakdownTab />}
+        {tab === 'rules' && <RulesTab />}
+        {tab === 'qa' && <QaTab />}
         {tab === 'library' && <LibraryTab annotations={annotations} loaded={loaded} onDelete={handleDelete} />}
         {tab === 'examples' && <ExamplesTab />}
         {tab === 'concepts' && <ConceptsTab />}
